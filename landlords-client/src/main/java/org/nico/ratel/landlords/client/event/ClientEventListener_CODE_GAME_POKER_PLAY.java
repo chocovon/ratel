@@ -6,12 +6,13 @@ import java.util.Map;
 
 import org.nico.noson.Noson;
 import org.nico.noson.entity.NoType;
+import org.nico.ratel.landlords.client.storage.RoomInfo;
 import org.nico.ratel.landlords.entity.Poker;
 import org.nico.ratel.landlords.enums.PokerLevel;
 import org.nico.ratel.landlords.enums.ServerEventCode;
 import org.nico.ratel.landlords.helper.MapHelper;
+import org.nico.ratel.landlords.print.NonBlockWriter;
 import org.nico.ratel.landlords.print.SimplePrinter;
-import org.nico.ratel.landlords.print.SimpleWriter;
 
 import io.netty.channel.Channel;
 
@@ -27,7 +28,10 @@ public class ClientEventListener_CODE_GAME_POKER_PLAY extends ClientEventListene
 		
 		
 		SimplePrinter.printNotice("Please enter the card you came up with (enter [EXIT] to exit current room, enter [PASS] to jump current round)");
-		String line = SimpleWriter.write("card");
+		String line = NonBlockWriter.write("card", RoomInfo.actionTimeLimit);
+		if (NonBlockWriter.ABANDON.equals(line)) {
+			return;
+		}
 
 		if(line == null){
 			SimplePrinter.printNotice("Invalid enter");

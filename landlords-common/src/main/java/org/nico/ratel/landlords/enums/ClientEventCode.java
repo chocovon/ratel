@@ -57,7 +57,9 @@ public enum ClientEventCode implements Serializable{
 	CODE_GAME_POKER_PLAY_INVALID("无效"),
 	
 	CODE_GAME_POKER_PLAY_ORDER_ERROR("顺序错误"),
-	
+
+	CODE_GAME_PLAY_TIME_OUT("操作超时"),
+
 	CODE_GAME_OVER("游戏结束"),
 	
 	CODE_PVE_DIFFICULTY_NOT_SUPPORT("人机难度不支持"),
@@ -65,7 +67,7 @@ public enum ClientEventCode implements Serializable{
 	CODE_GAME_WATCH("观战"),
 
 	CODE_GAME_WATCH_SUCCESSFUL("观战成功");
-	
+
 	private String msg;
 
 	private ClientEventCode(String msg) {

@@ -29,7 +29,9 @@ public class ClientSide{
 	private ClientSide pre;
 	
 	private transient Channel channel;
-	
+
+	private int actionSecLeft = -1;
+
 	public ClientSide() {}
 
 	public ClientSide(int id, ClientStatus status, Channel channel) {
@@ -45,6 +47,7 @@ public class ClientSide{
 		type = null;
 		next = null;
 		pre = null;
+		actionSecLeft = -1;
 	}
 
 	public final ClientRole getRole() {
@@ -149,4 +152,11 @@ public class ClientSide{
 		return true;
 	}
 
+	public int getActionSecLeft() {
+		return actionSecLeft;
+	}
+
+	public void setActionSecLeft(int actionSecLeft) {
+		this.actionSecLeft = actionSecLeft;
+	}
 }

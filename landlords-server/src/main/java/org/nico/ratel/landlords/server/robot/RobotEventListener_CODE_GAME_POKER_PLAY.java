@@ -1,6 +1,5 @@
 package org.nico.ratel.landlords.server.robot;
 
-import org.nico.noson.Noson;
 import org.nico.ratel.landlords.entity.ClientSide;
 import org.nico.ratel.landlords.entity.PokerSell;
 import org.nico.ratel.landlords.entity.Room;
@@ -39,13 +38,9 @@ public class RobotEventListener_CODE_GAME_POKER_PLAY implements RobotEventListen
 			TimeHelper.sleep(300);
 			
 			if(pokerSell == null || pokerSell.getSellType() == SellType.ILLEGAL) {
-				ServerEventListener.get(ServerEventCode.CODE_GAME_POKER_PLAY_PASS).call(robot, data);
+				ServerEventListener.get(ServerEventCode.CODE_GAME_POKER_PLAY_PASS).call(robot, null);
 			}else {
-				Character[] cs = new Character[pokerSell.getSellPokers().size()];
-				for(int index = 0; index < cs.length; index ++) {
-					cs[index] = pokerSell.getSellPokers().get(index).getLevel().getAlias()[0];
-				}
-				ServerEventListener.get(ServerEventCode.CODE_GAME_POKER_PLAY).call(robot, Noson.reversal(cs));
+				ServerEventListener.get(ServerEventCode.CODE_GAME_POKER_PLAY).call(robot, PokerHelper.toJsonData(pokerSell));
 			}
 		});
 	}

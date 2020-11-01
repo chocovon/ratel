@@ -1,6 +1,7 @@
 package org.nico.ratel.landlords.client.event;
 
 import org.nico.noson.Noson;
+import org.nico.ratel.landlords.client.storage.RoomInfo;
 import org.nico.ratel.landlords.entity.Room;
 import org.nico.ratel.landlords.print.SimplePrinter;
 
@@ -12,6 +13,7 @@ public class ClientEventListener_CODE_ROOM_CREATE_SUCCESS extends ClientEventLis
 	public void call(Channel channel, String data) {
 		
 		Room room = Noson.convert(data, Room.class);
+		RoomInfo.actionTimeLimit = room.getActionTimeLimit();
 		
 		initLastSellInfo();
 		

@@ -2,8 +2,8 @@ package org.nico.ratel.landlords.client.event;
 
 import org.nico.ratel.landlords.enums.ClientEventCode;
 import org.nico.ratel.landlords.enums.ServerEventCode;
+import org.nico.ratel.landlords.print.NonBlockWriter;
 import org.nico.ratel.landlords.print.SimplePrinter;
-import org.nico.ratel.landlords.print.SimpleWriter;
 import org.nico.ratel.landlords.utils.OptionsUtils;
 
 import io.netty.channel.Channel;
@@ -17,7 +17,7 @@ public class ClientEventListener_CODE_SHOW_OPTIONS_PVE extends ClientEventListen
 		SimplePrinter.printNotice("2. Medium Model");
 		SimplePrinter.printNotice("3. Difficulty Model");
 		SimplePrinter.printNotice("Please enter the number of options (enter [BACK] return options list)");
-		String line = SimpleWriter.write("pve");
+		String line = NonBlockWriter.write("pve");
 		
 		if(line.equalsIgnoreCase("BACK")) {
 			get(ClientEventCode.CODE_SHOW_OPTIONS).call(channel, data);

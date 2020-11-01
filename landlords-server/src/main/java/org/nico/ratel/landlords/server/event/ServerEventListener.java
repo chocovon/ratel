@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.nico.ratel.landlords.entity.ClientSide;
 import org.nico.ratel.landlords.enums.ServerEventCode;
+import org.nico.ratel.landlords.print.SimplePrinter;
 
 public interface ServerEventListener {
 
@@ -26,6 +27,14 @@ public interface ServerEventListener {
 				Class<ServerEventListener> listenerClass = (Class<ServerEventListener>) Class.forName(eventListener);
 				try {
 					listener = listenerClass.getDeclaredConstructor().newInstance();
+//					ServerEventListener finalListener = listener;
+//					listener = (client, data) -> {
+//						String log = client.getNickname() + " call " +
+//								code.name().substring(code.name().length() - 10) + " : " +
+//								data;
+//						SimplePrinter.printNotice(log);
+//						finalListener.call(client, data);
+//					};
 				} catch (InvocationTargetException | NoSuchMethodException e) {
 					e.printStackTrace();
 				}

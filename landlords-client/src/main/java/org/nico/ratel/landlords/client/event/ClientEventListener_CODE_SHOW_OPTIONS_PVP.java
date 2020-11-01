@@ -2,8 +2,8 @@ package org.nico.ratel.landlords.client.event;
 
 import org.nico.ratel.landlords.enums.ClientEventCode;
 import org.nico.ratel.landlords.enums.ServerEventCode;
+import org.nico.ratel.landlords.print.NonBlockWriter;
 import org.nico.ratel.landlords.print.SimplePrinter;
-import org.nico.ratel.landlords.print.SimpleWriter;
 import org.nico.ratel.landlords.utils.OptionsUtils;
 
 import io.netty.channel.Channel;
@@ -18,7 +18,7 @@ public class ClientEventListener_CODE_SHOW_OPTIONS_PVP extends ClientEventListen
 		SimplePrinter.printNotice("3. Join Room");
 		SimplePrinter.printNotice("4. Watch Game");
 		SimplePrinter.printNotice("Please enter the number of options (enter [BACK] return options list)");
-		String line = SimpleWriter.write("pvp");
+		String line = NonBlockWriter.write("pvp");
 		
 		if(line.equalsIgnoreCase("BACK")) {
 			get(ClientEventCode.CODE_SHOW_OPTIONS).call(channel, data);
@@ -31,7 +31,7 @@ public class ClientEventListener_CODE_SHOW_OPTIONS_PVP extends ClientEventListen
 				pushToServer(channel, ServerEventCode.CODE_GET_ROOMS, null);
 			}else if(choose == 3){
 				SimplePrinter.printNotice("Please enter the room id you want to join (enter [BACK] return options list)");
-				line = SimpleWriter.write("roomid");
+				line = NonBlockWriter.write("roomid");
 				
 				if(line.equalsIgnoreCase("BACK")) {
 					call(channel, data);
@@ -46,7 +46,7 @@ public class ClientEventListener_CODE_SHOW_OPTIONS_PVP extends ClientEventListen
 				}
 			} else if (choose == 4) {
 				SimplePrinter.printNotice("Please enter the room id you want to watch (enter [BACK] return options list)");
-				line = SimpleWriter.write("roomid");
+				line = NonBlockWriter.write("roomid");
 
 				if(line.equalsIgnoreCase("BACK")) {
 					call(channel, data);

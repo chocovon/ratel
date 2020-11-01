@@ -1,8 +1,8 @@
 package org.nico.ratel.landlords.client.event;
 
 import org.nico.ratel.landlords.enums.ClientEventCode;
+import org.nico.ratel.landlords.print.NonBlockWriter;
 import org.nico.ratel.landlords.print.SimplePrinter;
-import org.nico.ratel.landlords.print.SimpleWriter;
 import org.nico.ratel.landlords.utils.OptionsUtils;
 
 import io.netty.channel.Channel;
@@ -16,7 +16,7 @@ public class ClientEventListener_CODE_SHOW_OPTIONS extends ClientEventListener{
 		SimplePrinter.printNotice("2. PvE");
 		SimplePrinter.printNotice("3. Setting");
 		SimplePrinter.printNotice("Please enter the number of options (enter [EXIT] log out)");
-		String line = SimpleWriter.write("options");
+		String line = NonBlockWriter.write("options");
 		
 		if(line.equalsIgnoreCase("EXIT")) {
 			System.exit(0);

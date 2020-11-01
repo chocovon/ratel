@@ -41,6 +41,8 @@ public class Room{
 
 	private int firstSellClient;
 
+	private int actionTimeLimit = 15;
+
 	/** 观战者列表 */
 	private List<ClientSide> watcherList = new ArrayList<>(5);
 	
@@ -176,5 +178,13 @@ public class Room{
 
 	public List<ClientSide> getWatcherList() {
 		return watcherList;
+	}
+
+	public int getActionTimeLimit() {
+		return actionTimeLimit;
+	}
+
+	public void setActionTimeLimit(int actionTimeLimit) {
+		this.actionTimeLimit = actionTimeLimit;
 	}
 }

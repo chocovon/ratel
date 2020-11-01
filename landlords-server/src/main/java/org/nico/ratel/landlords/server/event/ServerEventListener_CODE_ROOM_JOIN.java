@@ -60,6 +60,7 @@ public class ServerEventListener_CODE_ROOM_JOIN implements ServerEventListener{
 							.put("roomId", room.getId())
 							.put("roomOwner", room.getRoomOwner())
 							.put("roomClientCount", room.getClientSideList().size())
+							.put("actionTimeLimit", room.getActionTimeLimit())
 							.json();
 					for(ClientSide client: roomClientMap.values()) {
 						ChannelUtils.pushToClient(client.getChannel(), ClientEventCode.CODE_ROOM_JOIN_SUCCESS, result);

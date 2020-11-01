@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.nico.noson.Noson;
 import org.nico.ratel.landlords.entity.Poker;
 import org.nico.ratel.landlords.entity.PokerSell;
 import org.nico.ratel.landlords.enums.PokerLevel;
@@ -607,5 +608,13 @@ public class PokerHelper {
 			increase_1 = 0;
 			sellPokers_1.clear();
 		}
+	}
+
+	public static String toJsonData(PokerSell pokerSell) {
+		Character[] cs = new Character[pokerSell.getSellPokers().size()];
+		for(int index = 0; index < cs.length; index ++) {
+			cs[index] = pokerSell.getSellPokers().get(index).getLevel().getAlias()[0];
+		}
+		return Noson.reversal(cs);
 	}
 }

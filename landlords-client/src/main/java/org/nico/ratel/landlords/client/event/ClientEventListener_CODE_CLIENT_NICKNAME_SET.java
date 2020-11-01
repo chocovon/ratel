@@ -6,8 +6,8 @@ import org.nico.noson.util.string.StringUtils;
 import org.nico.ratel.landlords.enums.ClientEventCode;
 import org.nico.ratel.landlords.enums.ServerEventCode;
 import org.nico.ratel.landlords.helper.MapHelper;
+import org.nico.ratel.landlords.print.NonBlockWriter;
 import org.nico.ratel.landlords.print.SimplePrinter;
-import org.nico.ratel.landlords.print.SimpleWriter;
 
 import io.netty.channel.Channel;
 
@@ -27,7 +27,7 @@ public class ClientEventListener_CODE_CLIENT_NICKNAME_SET extends ClientEventLis
 			}
 		}
 		SimplePrinter.printNotice("Please set your nickname (upto " + NICKNAME_MAX_LENGTH + " characters)");
-		String nickname = SimpleWriter.write("nickname");
+		String nickname = NonBlockWriter.write("nickname");
 		
 		// If the length of nickname is more that NICKNAME_MAX_LENGTH
 		if (nickname.trim().length() > NICKNAME_MAX_LENGTH) {

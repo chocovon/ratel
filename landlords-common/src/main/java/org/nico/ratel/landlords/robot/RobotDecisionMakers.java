@@ -13,11 +13,12 @@ import org.nico.ratel.landlords.entity.PokerSell;
  * @author nico
  */
 public class RobotDecisionMakers {
+	public static int SIMPLE = 1;
 	
 	private static Map<Integer, AbstractRobotDecisionMakers> decisionMakersMap = new HashMap<Integer, AbstractRobotDecisionMakers>() {
 		private static final long serialVersionUID = 8541568961784067309L;
 		{
-			put(1, new SimpleRobotDecisionMakers());
+			put(SIMPLE, new SimpleRobotDecisionMakers());
 		}
 	};
 	

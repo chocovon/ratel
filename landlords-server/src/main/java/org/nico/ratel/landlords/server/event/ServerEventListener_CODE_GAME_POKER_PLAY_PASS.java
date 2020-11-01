@@ -33,7 +33,7 @@ public class ServerEventListener_CODE_GAME_POKER_PLAY_PASS implements ServerEven
 							ChannelUtils.pushToClient(client.getChannel(), ClientEventCode.CODE_GAME_POKER_PLAY_PASS, result);
 						}else {
 							if(client.getId() == turnClient.getId()) {
-								RobotEventListener.get(ClientEventCode.CODE_GAME_POKER_PLAY).call(turnClient, data);
+								RobotEventListener.get(ClientEventCode.CODE_GAME_POKER_PLAY).call(turnClient, null);
 							}
 						}
 					}

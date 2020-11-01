@@ -3,10 +3,11 @@ package org.nico.ratel.landlords.client.event;
 import java.util.Map;
 
 import org.nico.ratel.landlords.client.SimpleClient;
+import org.nico.ratel.landlords.client.storage.RoomInfo;
 import org.nico.ratel.landlords.enums.ServerEventCode;
 import org.nico.ratel.landlords.helper.MapHelper;
+import org.nico.ratel.landlords.print.NonBlockWriter;
 import org.nico.ratel.landlords.print.SimplePrinter;
-import org.nico.ratel.landlords.print.SimpleWriter;
 
 import io.netty.channel.Channel;
 
@@ -23,7 +24,10 @@ public class ClientEventListener_CODE_GAME_LANDLORD_ELECT extends ClientEventLis
 		
 		if(turnClientId == SimpleClient.id) {
 			SimplePrinter.printNotice("It's your turn. Do you want to rob the landlord? [Y/N] (enter [EXIT] to exit current room)");
-			String line = SimpleWriter.write("Y/N");
+			String line = NonBlockWriter.write("Y/N", RoomInfo.actionTimeLimit);
+			if (NonBlockWriter.ABANDON.equals(line)) {
+				return;
+			}
 			if(line.equalsIgnoreCase("EXIT")) {
 				pushToServer(channel, ServerEventCode.CODE_CLIENT_EXIT);
 			}else if(line.equalsIgnoreCase("Y")){

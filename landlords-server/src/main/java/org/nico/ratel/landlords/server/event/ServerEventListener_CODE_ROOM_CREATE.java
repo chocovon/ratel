@@ -8,6 +8,9 @@ import org.nico.ratel.landlords.enums.ClientEventCode;
 import org.nico.ratel.landlords.enums.RoomStatus;
 import org.nico.ratel.landlords.enums.RoomType;
 import org.nico.ratel.landlords.server.ServerContains;
+import org.nico.ratel.landlords.server.timer.RoomTimer;
+
+import java.util.Timer;
 
 public class ServerEventListener_CODE_ROOM_CREATE implements ServerEventListener{
 
@@ -28,6 +31,11 @@ public class ServerEventListener_CODE_ROOM_CREATE implements ServerEventListener
 		ServerContains.addRoom(room);
 		
 		ChannelUtils.pushToClient(clientSide.getChannel(), ClientEventCode.CODE_ROOM_CREATE_SUCCESS, Noson.reversal(room));
+
+		ServerContains.THREAD_EXCUTER.execute(() -> {
+			Timer timer=new Timer();
+			timer.schedule(new RoomTimer(room), 0L, 1000L);
+		});
 	}
 
 	
