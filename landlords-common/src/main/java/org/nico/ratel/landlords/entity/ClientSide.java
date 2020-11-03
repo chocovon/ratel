@@ -32,6 +32,8 @@ public class ClientSide{
 
 	private int actionSecLeft = -1;
 
+	private long lastActionTime = System.currentTimeMillis();
+
 	public ClientSide() {}
 
 	public ClientSide(int id, ClientStatus status, Channel channel) {
@@ -158,5 +160,13 @@ public class ClientSide{
 
 	public void setActionSecLeft(int actionSecLeft) {
 		this.actionSecLeft = actionSecLeft;
+	}
+
+	public long getLastActionTime() {
+		return lastActionTime;
+	}
+
+	public void setLastActionTime(long lastActionTime) {
+		this.lastActionTime = lastActionTime;
 	}
 }

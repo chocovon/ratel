@@ -43,6 +43,7 @@ public class TransferHandler extends ChannelInboundHandlerAdapter{
 			ServerEventCode code = ServerEventCode.valueOf(serverTransferData.getCode());
 			if(code != null && code != ServerEventCode.CODE_CLIENT_HEAD_BEAT) {
 				ClientSide client = ServerContains.CLIENT_SIDE_MAP.get(getId(ctx.channel()));
+				client.setLastActionTime(System.currentTimeMillis());
 				SimplePrinter.serverLog(client.getId() + " | " + client.getNickname() + " do:" + code.getMsg());
 				ServerEventListener.get(code).call(client, serverTransferData.getData());
 			}
