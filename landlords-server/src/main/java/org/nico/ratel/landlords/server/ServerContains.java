@@ -17,7 +17,8 @@ public class ServerContains {
 	 * Server port
 	 */
 	public static int port = 1024;
-	
+	public static int wsPort = 2048;
+
 	/**
 	 * The map of server side
 	 */

@@ -1,5 +1,6 @@
 package org.nico.ratel.landlords.server.handler;
 
+import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 import org.nico.ratel.landlords.channel.ChannelUtils;
 import org.nico.ratel.landlords.entity.ClientSide;
 import org.nico.ratel.landlords.entity.ServerTransferData.ServerTransferDataProtoc;
@@ -61,8 +62,12 @@ public class TransferHandler extends ChannelInboundHandlerAdapter{
 	}
 	
     @Override  
-    public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {  
-        if (evt instanceof IdleStateEvent) {  
+    public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+		if (evt instanceof WebSocketServerProtocolHandler.HandshakeComplete) {
+			Channel ch = ctx.channel();
+			ChannelUtils.pushToClient(ch, ClientEventCode.CODE_CLIENT_CONNECT, String.valueOf(getId(ch)));
+			ChannelUtils.pushToClient(ch, ClientEventCode.CODE_CLIENT_NICKNAME_SET, null);
+		} else if (evt instanceof IdleStateEvent) {
             IdleStateEvent event = (IdleStateEvent) evt;  
             if (event.state() == IdleState.READER_IDLE) {  
                 try{

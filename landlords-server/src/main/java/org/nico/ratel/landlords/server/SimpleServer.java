@@ -12,6 +12,7 @@ import java.net.InetSocketAddress;
 import java.util.Timer;
 import org.nico.ratel.landlords.print.SimplePrinter;
 import org.nico.ratel.landlords.server.handler.DefaultChannelInitializer;
+import org.nico.ratel.landlords.server.handler.WebSocketChannelInitializer;
 import org.nico.ratel.landlords.server.timer.RoomClearTask;
 
 public class SimpleServer {
@@ -33,15 +34,21 @@ public class SimpleServer {
 			.localAddress(new InetSocketAddress(ServerContains.port))
 			.childHandler(new DefaultChannelInitializer());
 
-			ChannelFuture f = bootstrap .bind().sync();
-
+			ChannelFuture f = bootstrap.bind().sync();
 			SimplePrinter.serverLog("The server was successfully started on port " + ServerContains.port);
+			bootstrap
+					.localAddress(new InetSocketAddress(ServerContains.wsPort))
+					.childHandler(new WebSocketChannelInitializer());
+			ChannelFuture f2 = bootstrap.bind().sync();
+			SimplePrinter.serverLog("WebSocket channel successfully initialized on port " + ServerContains.wsPort);
 
 			ServerContains.THREAD_EXCUTER.execute(() -> {
 				Timer timer=new Timer();
 				timer.schedule(new RoomClearTask(), 0L, 3000L);
 			});
+
 			f.channel().closeFuture().sync();
+			f2.channel().closeFuture().sync();
 		} finally {
 			parentGroup.shutdownGracefully();
 			childGroup.shutdownGracefully();
